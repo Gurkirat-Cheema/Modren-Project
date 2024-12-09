@@ -23,7 +23,7 @@ This is a web application where users can:
    git clone https://github.com/Gurkirat-Cheema/Modren_Project.git
 2. Install Dependencies
    npm install
-3. Make a .env with this in it 
+3. Make a .env with this in the Book_Library_Final
 MONGO_URI= Mongodb_connection_info
 SESSION_SECRET=secretekey
 4. Run the application
