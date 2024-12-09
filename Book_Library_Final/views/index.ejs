@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Library</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+        <h1>Book Library</h1>
+        <% if (books.length > 0) { %>
+            <div class="book-grid">
+                <% books.forEach(book => { %>
+                    <div class="book-card">
+                        <img src="https://covers.openlibrary.org/b/id/<%= book.coverId %>-L.jpg" alt="<%= book.title %> Cover">
+                        <h3><%= book.title %></h3>
+                        <p>By <%= book.author %></p>
+                        <p><%= book.genre %></p>
+                        <a href="/books/<%= book._id %>" class="btn">View Details</a>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>No books available.</p>
+        <% } %>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= user.username %>'s Profile</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+        <div class="profile-header">
+            <h1>Welcome, <%= user.username %>!</h1>
+        </div>
+        <section class="reading-list-section">
+            <h2>Your Reading List</h2>
+            <% if (user.readingList.length > 0) { %>
+                <div class="book-grid">
+                    <% user.readingList.forEach(book => { %>
+                        <div class="book-card">
+                            <img src="https://covers.openlibrary.org/b/id/<%= book.coverId %>-L.jpg" alt="<%= book.title %> Cover">
+                            <h3><%= book.title %></h3>
+                            <p>By <%= book.author %></p>
+                            <p><strong>Genre:</strong> <%= book.genre %></p>
+                            <p><strong>Total Pages:</strong> <%= book.pages || 'N/A' %></p>
+                            <% const pagesRead = user.progress.get(book._id.toString()) || 0; %>
+                            <% const progressPercent = book.pages ? Math.round((pagesRead / book.pages) * 100) : 0; %>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: <%= progressPercent %>%;"></div>
+                            </div>
+                            <p><strong>Progress:</strong> <%= pagesRead %> / <%= book.pages || 'N/A' %> pages (<%= progressPercent %>%)</p>
+                            <form action="/users/progress/<%= book._id %>" method="POST">
+                                <label for="pagesRead-<%= book._id %>">Update Pages Read:</label>
+                                <input type="number" name="pagesRead" id="pagesRead-<%= book._id %>" min="0" max="<%= book.pages || 100 %>" value="<%= pagesRead %>" required>
+                                <button type="submit" class="btn">Update Progress</button>
+                            </form>
+                            <form action="/users/reading-list/remove/<%= book._id %>" method="POST" style="margin-top: 10px;">
+                                <button type="submit" class="btn btn-remove">Remove</button>
+                            </form>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p>Your reading list is empty. Start adding books now!</p>
+                <a href="/" class="btn">Browse Books</a>
+            <% } %>
+        </section>
+    </div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Reading List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+        <h1>My Reading List</h1>
+        <% if (user.readingList && user.readingList.length > 0) { %>
+            <ul class="book-list">
+                <% user.readingList.forEach(book => { %>
+                    <li>
+                        <a href="/books/<%= book._id %>">
+                            <img src="https://covers.openlibrary.org/b/id/<%= book.coverId %>-L.jpg" alt="<%= book.title %> Cover">
+                            <h3><%= book.title %></h3>
+                            <p>By <%= book.author %></p>
+                        </a>
+                        <form action="/users/reading-list/remove/<%= book._id %>" method="POST" style="margin-top: 10px;">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>Your reading list is empty. Start adding books now!</p>
+            <a href="/" class="btn">Browse Books</a>
+        <% } %>
+    </div>
+</body>
+</html>

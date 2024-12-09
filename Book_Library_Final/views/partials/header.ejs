@@ -1,0 +1,31 @@
+<header>
+    <link rel="stylesheet" href="/css/styles.css">
+    <nav>
+        <ul class="navbar">
+            <li>
+                <a href="/" class="nav-button">Home</a>
+            </li>
+            <% if (!user) { %>
+                <li>
+                    <a href="/users/login" class="nav-button">Login</a>
+                </li>
+                <li>
+                    <a href="/users/register" class="nav-button">Register</a>
+                </li>
+            <% } else { %>
+                <li>
+                    <a href="/users/profile" class="nav-button">Profile</a>
+                </li>
+                <li>
+                    <a href="/users/logout" class="nav-button">Logout</a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
+    <form action="/books/search" method="GET" style="margin-top: 10px;">
+        <input type="text" name="query" placeholder="Search for books..." required>
+        <button type="submit">Search</button>
+    </form>
+</header>
+
+
